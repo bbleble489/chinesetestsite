@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ไฟล์</title>
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+</head>
+<body>
+  <ul>
+  <li><a href="#">เว็บรวมจีน</a></li>
+  <li><a href="index.html">หน้าแรก</a></li>
+  <li><a href="homeworks.html">การบ้าน</a></li>
+  <li><a href="lessons.html">บทเรียน</a></li>
+  <li><a href="books.html">หนังสือ</a></li>
+  <li><a href="sheets.html">ใบงาน</a></li>
+  <li><a href="files.html">ไฟล์</a></li>
+</ul>
+
+<table id="results" width="360">
+    <thead>
+      <tr>
+        <th scope="col" width="90">วันที่</th>
+        <th scope="col" width="90">เรื่อง</th>
+        <th scope="col" width="90">คุณครู</th>
+        <th scope="col" width="90"></th>
+
+      </tr>
+    </thead>
+    <tbody>
+       <tr>
+        <td>05/01/2024</td>
+        <td>ประมวลรายวิชา ภาษาจีนฟัง-พูด 2</td>
+        <td>小陈老师</td>
+        <td><a href="files/Syllabus_CH30242_66.pdf" target="_blank" class="button">ดาวน์โหลด</a></td>
+      </tr>
+      <tr>
+        <td>04/01/2024</td>
+        <td>เพิ่มเติม Unit 1</td>
+        <td>小陈老师</td>
+        <td><a href="files/เพิ่มเติม Unit 1.pdf" target="_blank" class="button">ดาวน์โหลด</a></td>
+      </tr>
+      <tr>
+        <td>03/01/2024</td>
+        <td>เพิ่มเติม Unit 3</td>
+        <td>小陈老师</td>
+        <td><a href="files/เพิ่มเติม Unit 3.pdf" target="_blank" class="button">ดาวน์โหลด</a></td>
+      </tr>
+      <tr>
+        <td>02/01/2024</td>
+        <td>เอกสารประกอบการเรียน ภาษาจีนฟังพูด</td>
+        <td>小陈老师</td>
+        <td><a href="files/เอกสารประกอบการเรียน ภาษาจีนฟังพูด.pdf" target="_blank" class="button">ดาวน์โหลด</a></td>
+      </tr>
+      <tr>
+        <td>01/01/2024</td>
+        <td>สารทจีน</td>
+        <td>大陈老师</td>
+        <td><a href="files/สารทจีน" target="_blank" class="button">ดาวน์โหลด</a></td>
+      </tr>
+    </tbody>
+</table>
+<button class="sort-date sort-date--earliest">ใหม่ที่สุด</button>
+
+</body>
+<script>
+ function convertDate(d) {
+    var p = d.split("/");
+    return +(p[2] + p[1] + p[0]);
+}
+
+function sortByDate(direction) {
+    var tbody = document.querySelector("#results tbody");
+    // get trs as array for ease of use
+    var rows = [].slice.call(tbody.querySelectorAll("tr"));
+
+    if (direction === 'asc') {
+        document.querySelector(".sort-date").classList.remove('sort-date--earliest');
+        document.querySelector(".sort-date").classList.add('sort-date--latest');
+
+        rows.sort(function (a, b) {
+            return (
+                convertDate(b.cells[0].innerHTML) -
+                convertDate(a.cells[0].innerHTML)
+            );
+        });
+    } else {
+        document.querySelector(".sort-date").classList.add('sort-date--earliest');
+        document.querySelector(".sort-date").classList.remove('sort-date--latest');
+
+        rows.sort(function (a, b) {
+            return (
+                convertDate(a.cells[0].innerHTML) -
+                convertDate(b.cells[0].innerHTML)
+            );
+        });
+    }
+
+    rows.forEach(function (v) {
+        tbody.appendChild(v);
+    });
+}
+
+document.querySelector(".sort-date").addEventListener("click", () => {
+    if (document.querySelector(".sort-date").classList.contains('sort-date--earliest')) {
+        document.querySelector(".sort-date").innerText = "ใหม่ที่สุด";
+
+        sortByDate('asc');
+    } else {
+        document.querySelector(".sort-date").innerText = "เก่าที่สุด";
+
+        sortByDate('desc');
+    }
+});
+</script> 
